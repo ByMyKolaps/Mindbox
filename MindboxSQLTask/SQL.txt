@@ -1,0 +1,66 @@
+1. Создаем таблицу фильмов:
+create table Movies (
+  id int PRIMARY KEY,
+  name varchar(40));
+
+2. Заполняем ее данными:
+insert into movies (id, name)
+VALUES 
+(1, "The Green Mile"),
+(2, "Schindler's List"),
+(3, "Forrest Gump"),
+(4, "Interstellar"),
+(5, "The Dark Knight"),
+(6, "Fight Club"),
+(7, "Gladiator");
+
+3. Создаем таблицу жанров:
+CREATE TABLE Genres (
+  id int PRIMARY KEY,
+  name varchar(40));
+
+4. Заполняем ее данными:
+INSERT INTO Genres (id, name) VALUES
+(1, "Drama"),
+(2, "Historical"),
+(3, "Сomedy"),
+(4, "Fantastic"),
+(5, "Action movie"),
+(6, "Crime");
+
+5. Создаем связующую таблицу, т.к у нас отношение многие ко многим:
+CREATE TABLE Movie_Genre (
+  movie_id integer,
+  genre_id integer,
+  PRIMARY KEY (movie_id , genre_id ),
+  FOREIGN KEY (movie_id) REFERENCES Movies,
+  FOREIGN KEY (genre_id) REFERENCES Genres
+);
+
+
+6. Заполняем данными:
+INSERT INTO Movie_Genre (movie_id, genre_id) VALUES
+(1, 1),
+(1, 6),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2),
+(3, 3),
+(4, 1),
+(4, 4),
+(5, 1),
+(5, 4),
+(5, 5),
+(5, 6);
+
+
+7. Получаем нужные данные:
+SELECT 
+   Movies.name As MovieName,
+   Genres.name As GenreName
+   FROM Movies LEFT JOIN Movie_Genre
+		     on Movies.id = movie_id
+	       Left JOIN Genres
+		     on genre_id = Genres.id;
+
